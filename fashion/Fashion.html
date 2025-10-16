@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty & Style - Premium Women's Fashion</title>
+    <style>
+        /* Reset and Basic Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        ul {
+            list-style: none;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        header.scrolled {
+            background-color: #fff;
+            transform: translateY(0);
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 15px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #e91e63;
+            letter-spacing: 1px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        .nav-links li a {
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            padding-bottom: 4px;
+        }
+        .nav-links li a:hover {
+            color: #e91e63;
+            border-bottom: 2px solid #e91e63;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .hamburger span {
+            width: 20px;
+            height: 2px;
+            background-color: #333;
+            transition: all 0.3s ease;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(4px, 4px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Hero Section */
+        #hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('hero.jpg') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+            padding-top: 60px;
+        }
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(233, 30, 99, 0.1);
+            animation: pulse 5s infinite ease-in-out;
+            z-index: 1;
+        }
+        #hero h1 {
+            font-size: clamp(30px, 5vw, 60px);
+            margin-bottom: 15px;
+            animation: fadeInDown 1.5s ease-out;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+        #hero p {
+            font-size: clamp(14px, 3vw, 24px);
+            margin-bottom: 20px;
+            animation: fadeInUp 1.5s ease-out;
+            z-index: 2;
+        }
+        .btn {
+            background-color: #e91e63;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: clamp(12px, 2vw, 18px);
+            font-weight: 600;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            z-index: 2;
+        }
+        .btn:hover {
+            transform: translateY(-5px);
+            background-color: #d81b60;
+            box-shadow: 0 6px 15px rgba(233, 30, 99, 0.5);
+        }
+
+        /* Section Styles */
+        section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        h2 {
+            font-size: clamp(30px, 4vw, 40px);
+            margin-bottom: 30px;
+            color: #e91e63;
+            text-align: center;
+            position: relative;
+            letter-spacing: 1px;
+        }
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #e91e63;
+            margin: 10px auto 0;
+            transition: width 0.5s ease;
+        }
+        h2:hover::after {
+            width: 120px;
+        }
+
+        /* About Section */
+        #about p {
+            font-size: clamp(14px, 2vw, 18px);
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        /* Services Section */
+        #services {
+            background-color: #f0f0f0;
+            padding: 40px 20px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        .service-card {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        .service-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .service-card h3 {
+            font-size: clamp(18px, 2.5vw, 24px);
+            margin: 15px 0 10px;
+        }
+        .service-card p {
+            font-size: clamp(14px, 1.8vw, 18px);
+            color: #666;
+        }
+
+        /* Collections Section */
+        #collections .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .collection-card {
+            background-color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .collection-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+        .collection-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .collection-card:hover img {
+            transform: scale(1.1);
+        }
+        .collection-info {
+            padding: 15px;
+            text-align: center;
+            flex-grow: 1;
+        }
+        .collection-info h3 {
+            font-size: clamp(18px, 2.5vw, 24px);
+            margin-bottom: 10px;
+        }
+        .collection-info p {
+            font-size: clamp(12px, 1.5vw, 16px);
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .collection-card .btn {
+            margin: 0 auto 15px;
+            padding: 8px 20px;
+            font-size: clamp(12px, 1.5vw, 16px);
+        }
+
+        /* Customer Reviews Section (Static Display) */
+        #customer-reviews {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .reviews-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .review-item {
+            flex: 1;
+            min-width: 200px;
+            padding: 20px;
+            text-align: center;
+        }
+        .review-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .review-item p {
+            font-size: clamp(14px, 1.8vw, 18px);
+            font-style: italic;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .review-item cite {
+            font-size: clamp(12px, 1.5vw, 16px);
+            color: #e91e63;
+            font-weight: 600;
+        }
+
+        /* Style Tips Section */
+        #style-tips .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .tip-card {
+            background-color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease;
+        }
+        .tip-card:hover {
+            transform: translateY(-10px);
+        }
+        .tip-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .tip-info {
+            padding: 15px;
+        }
+        .tip-info h3 {
+            font-size: clamp(16px, 2vw, 22px);
+            margin-bottom: 10px;
+        }
+        .tip-info p {
+            font-size: clamp(12px, 1.5vw, 16px);
+            color: #666;
+        }
+
+        /* Gallery Section */
+        #gallery {
+            background-color: #f0f0f0;
+            padding: 40px 20px;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.2);
+        }
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(233, 30, 99, 0.6);
+            opacity: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: clamp(12px, 1.5vw, 18px);
+            transition: opacity 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Contact Section */
+        #contact form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        #contact input, #contact textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: clamp(14px, 1.8vw, 16px);
+            transition: border-color 0.3s ease;
+        }
+        #contact input:focus, #contact textarea:focus {
+            border-color: #e91e63;
+        }
+        #contact button {
+            background-color: #e91e63;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: clamp(14px, 1.8vw, 18px);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        #contact button:hover {
+            background-color: #d81b60;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: clamp(12px, 1.5vw, 14px);
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .social-links a {
+            font-size: clamp(16px, 2vw, 20px);
+            transition: color 0.3s ease;
+        }
+        .social-links a:hover {
+            color: #e91e63;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #fff;
+                flex-direction: column;
+                text-align: center;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+            .nav-links.active {
+                max-height: 400px;
+                padding: 15px 0;
+            }
+            #hero { height: 80vh; padding-top: 50px; }
+            .collection-grid { grid-template-columns: 1fr 1fr; }
+            .tips-grid { grid-template-columns: 1fr 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+            .review-item { min-width: 100%; }
+        }
+
+        @media (max-width: 480px) {
+            #hero { height: 50vh; padding-top: 40px; }
+            #hero h1 { font-size: 24px; margin-bottom: 10px; }
+            #hero p { font-size: 12px; margin-bottom: 15px; }
+            .btn { padding: 8px 15px; font-size: 12px; }
+            .collection-grid { grid-template-columns: 1fr; }
+            .tips-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-item img { height: 150px; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Beauty & Style</div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#collections">Collections</a></li>
+                <li><a href="#customer-reviews">Customer Reviews</a></li>
+                <li><a href="#style-tips">Style Tips</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h1>Elevate Your Wardrobe</h1>
+        <p>Discover premium women's fashion curated for beauty and style</p>
+        <a href="https://wa.me/9313888538?text=I'd%20like%20to%20shop%20now" class="btn" target="_blank">Shop Now</a>
+    </section>
+
+    <section id="about">
+        <h2>About Beauty & Style</h2>
+        <p>Beauty & Style is your premier destination for reselling high-quality women's clothing. We focus on timeless pieces from renowned brands, available through Facebook Marketplace and Instagram. Our mission is to empower women with fashion that blends elegance, comfort, and trendiness. Starting fresh, we're committed to providing an exceptional shopping experience with personalized recommendations and swift delivery.</p>
+    </section>
+
+    <section id="services">
+        <h2>Services We Offer</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1600585154526-990d71a8d94b?auto=format&fit=crop&w=500&h=150&q=80" alt="Free Home Delivery">
+                <h3>Complimentary Home Delivery</h3>
+                <p>Enjoy the convenience of free delivery right to your doorstep.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=500&h=150&q=80" alt="Cash on Delivery">
+                <h3>Cash on Delivery Option</h3>
+                <p>Pay for your order securely when it arrives at your location.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1503342217511-9e9e6507f9e0?auto=format&fit=crop&w=500&h=150&q=80" alt="Budget Pricing">
+                <h3>Affordable Pricing</h3>
+                <p>Access stylish fashion at prices that suit your budget.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1513378442571-8b2ef4e8f7f6?auto=format&fit=crop&w=500&h=150&q=80" alt="Easy Replacement">
+                <h3>Hassle-Free Replacement</h3>
+                <p>Experience a smooth process for exchanging your items if needed.</p>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=500&h=150&q=80" alt="Flexible Payment Options">
+                <h3>Flexible Payment Choices</h3>
+                <p>Choose between online payments or cash on delivery for your convenience.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="collections">
+        <h2>Our Collections</h2>
+        <div class="collection-grid">
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1503342217505-8ed52450fd23?auto=format&fit=crop&w=500&h=250&q=80" alt="Elegant Dresses">
+                <div class="collection-info">
+                    <h3>Elegant Dresses</h3>
+                    <p>Perfect for special occasions, crafted from luxurious fabrics with intricate details.</p>
+                    <a href="https://wa.me/9313888538?text=I'm%20interested%20in%20Elegant%20Dresses" class="btn" target="_blank">Shop Now</a>
+                </div>
+            </div>
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1503342217511-9e9e6507f9e0?auto=format&fit=crop&w=500&h=250&q=80" alt="Casual Wear">
+                <div class="collection-info">
+                    <h3>Casual Wear</h3>
+                    <p>Comfortable yet stylish outfits for everyday elegance.</p>
+                    <a href="https://wa.me/9313888538?text=I'm%20interested%20in%20Casual%20Wear" class="btn" target="_blank">Shop Now</a>
+                </div>
+            </div>
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=500&h=250&q=80" alt="Accessories">
+                <div class="collection-info">
+                    <h3>Accessories</h3>
+                    <p>Elevate your look with our selection of premium jewelry and bags.</p>
+                    <a href="https://wa.me/9313888538?text=I'm%20interested%20in%20Accessories" class="btn" target="_blank">Shop Now</a>
+                </div>
+            </div>
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1600585154526-990d71a8d94b?auto=format&fit=crop&w=500&h=250&q=80" alt="Outerwear">
+                <div class="collection-info">
+                    <h3>Outerwear</h3>
+                    <p>Stay warm and fashionable with our trendy coats and jackets.</p>
+                    <a href="https://wa.me/9313888538?text=I'm%20interested%20in%20Outerwear" class="btn" target="_blank">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="customer-reviews">
+        <h2>Our Customer Reviews</h2>
+        <div class="reviews-container"></div>
+    </section>
+
+    <section id="style-tips">
+        <h2>Style Tips & Trends</h2>
+        <div class="tips-grid">
+            <div class="tip-card">
+                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=500&h=150&q=80" alt="Mixing Patterns">
+                <div class="tip-info">
+                    <h3>Mixing Patterns</h3>
+                    <p>Learn how to combine prints for a bold, fashionable look.</p>
+                </div>
+            </div>
+            <div class="tip-card">
+                <img src="https://images.unsplash.com/photo-1503342217511-9e9e6507f9e0?auto=format&fit=crop&w=500&h=150&q=80" alt="Layering Essentials">
+                <div class="tip-info">
+                    <h3>Layering Essentials</h3>
+                    <p>Tips on layering for all seasons without compromising style.</p>
+                </div>
+            </div>
+            <div class="tip-card">
+                <img src="https://images.unsplash.com/photo-1513378442571-8b2ef4e8f7f6?auto=format&fit=crop&w=500&h=150&q=80" alt="Color Coordination">
+                <div class="tip-info">
+                    <h3>Color Coordination</h3>
+                    <p>Master the art of color matching to enhance your outfits.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2>Inspiration Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1503342217505-8ed52450fd23?auto=format&fit=crop&w=150&h=200&q=80" alt="Gallery Image 1">
+                <div class="gallery-overlay">View More</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=200&q=80" alt="Gallery Image 2">
+                <div class="gallery-overlay">View More</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=150&h=200&q=80" alt="Gallery Image 3">
+                <div class="gallery-overlay">View More</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cf91b?auto=format&fit=crop&w=150&h=200&q=80" alt="Gallery Image 4">
+                <div class="gallery-overlay">View More</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=150&h=200&q=80" alt="Gallery Image 5">
+                <div class="gallery-overlay">View More</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=150&h=200&q=80" alt="Gallery Image 6">
+                <div class="gallery-overlay">View More</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form id="contact-form">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <input type="text" id="subject" placeholder="Subject" required>
+            <textarea id="message" placeholder="Your Message" rows="6" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        &copy; 2025 Beauty & Style. All rights reserved.
+        <div class="social-links">
+            <a href="https://facebook.com">Facebook</a>
+            <a href="https://instagram.com">Instagram</a>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Scroll effects
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 0);
+
+            const sections = document.querySelectorAll('section');
+            sections.forEach(sec => {
+                const top = sec.getBoundingClientRect().top;
+                if (top < window.innerHeight - 100) {
+                    sec.classList.add('visible');
+                }
+            });
+        });
+
+        // Customer Reviews (Static Display with Random Selection)
+        const reviews = [
+            { photo: 'customer-1.jpg', text: "Loved the elegant dress! Perfect fit.", author: "Sarah J." },
+            { photo: 'customer-2.jpg', text: "Fast delivery and great quality.", author: "Emily R." },
+            { photo: 'customer-3.jpg', text: "Trendy and affordable outfits.", author: "Mia L." },
+            { photo: 'customer-4.jpg', text: "Amazing service, will buy again!", author: "Olivia K." },
+            { photo: 'customer-5.jpg', text: "The accessories are stunning.", author: "Ava M." },
+            { photo: 'customer-6.jpg', text: "Comfortable and stylish wear.", author: "Sophia T." },
+            { photo: 'customer-7.jpg', text: "Exceeded my expectations!", author: "Isabella W." },
+            { photo: 'customer-8.jpg', text: "Beautiful designs at great prices.", author: "Charlotte P." },
+            { photo: 'customer-9.jpg', text: "Highly recommended!", author: "Amelia S." },
+            { photo: 'customer-10.jpg', text: "Perfect for any occasion.", author: "Harper D." }
+        ];
+
+        const reviewsContainer = document.querySelector('.reviews-container');
+        const visibleItems = 3;
+
+        // Randomly select 3 unique reviews on page load
+        const shuffledReviews = [...reviews].sort(() => 0.5 - Math.random());
+        const selectedReviews = shuffledReviews.slice(0, visibleItems);
+
+        selectedReviews.forEach(review => {
+            const reviewItem = document.createElement('div');
+            reviewItem.classList.add('review-item');
+            reviewItem.innerHTML = `
+                <img src="${review.photo}" alt="${review.author}">
+                <p>"${review.text}"</p>
+                <cite>- ${review.author}</cite>
+            `;
+            reviewsContainer.appendChild(reviewItem);
+        });
+
+        // Contact Form
+        const form = document.getElementById('contact-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            const text = `Name: ${name}%0AEmail: ${email}%0ASubject: ${subject}%0AMessage: ${message}`;
+            window.open(`https://wa.me/9313888538?text=${text}`, '_blank');
+            form.reset();
+        });
+
+        // Trigger initial visibility check
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>
